@@ -21,6 +21,43 @@ import mintlifyPatternLight from "../assets/mintlify-pattern-light.svg?url";
 
 import clerkPattern from "../assets/clerk/pattern.svg?url";
 
+const MedusaFrame = () => {
+  const [darkMode] = useAtom(darkModeAtom);
+  const [padding] = useAtom(paddingAtom);
+  const [showBackground] = useAtom(showBackgroundAtom);
+  const [fileName, setFileName] = useAtom(fileNameAtom);
+
+  return (
+    <div
+      className={classNames(
+        styles.frame,
+        showBackground && styles.medusaFrame,
+        showBackground && !darkMode && styles.medusaFrameLightMode,
+        !showBackground && styles.noBackground
+      )}
+      style={{ padding }}
+    >
+      {!showBackground && <div data-ignore-in-export className={styles.transparentPattern}></div>}
+      <div className={classNames(styles.medusaWindow, !darkMode && styles.medusaWindowLightMode)}>
+        <div className={classNames(styles.fileName, styles.medusaFileName)} data-value={fileName}>
+          <input
+            type="text"
+            placeholder="Untitled-1"
+            value={fileName}
+            onChange={(event) => setFileName(event.target.value)}
+            spellCheck={false}
+            tabIndex={-1}
+            size={1}
+          />
+        </div>
+        <div className={classNames(styles.medusaCodeContainer, !darkMode && styles.medusaCodeContainerLightMode)}>
+          <Editor />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const VercelFrame = () => {
   const [darkMode] = useAtom(darkModeAtom);
   const [padding] = useAtom(paddingAtom);
@@ -32,7 +69,7 @@ const VercelFrame = () => {
         styles.frame,
         showBackground && styles.vercelFrame,
         showBackground && !darkMode && styles.vercelFrameLightMode,
-        !showBackground && styles.noBackground,
+        !showBackground && styles.noBackground
       )}
       style={{ padding }}
     >
@@ -61,7 +98,7 @@ const SupabaseFrame = () => {
         styles.frame,
         showBackground && styles.supabaseFrame,
         !darkMode && styles.supabaseFrameLightMode,
-        !showBackground && styles.noBackground,
+        !showBackground && styles.noBackground
       )}
       style={{ padding }}
     >
@@ -101,7 +138,7 @@ const TailwindFrame = () => {
         showBackground && styles.tailwindFrame,
         !darkMode && styles.tailwindFrameLightMode,
         !showBackground && styles.noBackground,
-        isSafari && styles.isSafari,
+        isSafari && styles.isSafari
       )}
       style={{ padding }}
     >
@@ -145,7 +182,7 @@ const ClerkFrame = () => {
         styles.frame,
         showBackground && styles.clerkFrame,
         !darkMode && styles.clerkFrameLightMode,
-        !showBackground && styles.noBackground,
+        !showBackground && styles.noBackground
       )}
       style={{ padding }}
     >
@@ -172,7 +209,7 @@ const MintlifyFrame = () => {
         styles.frame,
         showBackground && styles.mintlifyFrame,
         !darkMode && styles.mintlifyFrameLightMode,
-        !showBackground && styles.noBackground,
+        !showBackground && styles.noBackground
       )}
       style={{ padding }}
     >
@@ -217,7 +254,7 @@ const PrismaFrame = () => {
         styles.frame,
         styles.prismaFrame,
         !darkMode && styles.prismaFrameLightMode,
-        !showBackground && styles.noBackground,
+        !showBackground && styles.noBackground
       )}
       style={{ padding }}
     >
@@ -242,7 +279,7 @@ const OpenAIFrame = () => {
       className={classNames(
         styles.openAIFrame,
         !darkMode && styles.openAIFrameLightMode,
-        !showBackground && styles.noBackground,
+        !showBackground && styles.noBackground
       )}
       style={{ padding, "--padding": `${padding}px` } as React.CSSProperties}
     >
@@ -269,7 +306,7 @@ const DefaultFrame = () => {
         styles.frame,
         styles[theme.id],
         darkMode && styles.darkMode,
-        showBackground && styles.withBackground,
+        showBackground && styles.withBackground
       )}
       style={{ padding, backgroundImage: showBackground ? themeBackground : `` }}
     >
@@ -325,6 +362,8 @@ const Frame = ({ resize = true }: { resize?: boolean }) => {
         return <OpenAIFrame />;
       case THEMES.prisma.id:
         return <PrismaFrame />;
+      case THEMES.medusa.id:
+        return <MedusaFrame />;
       default:
         return <DefaultFrame />;
     }

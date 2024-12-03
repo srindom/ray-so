@@ -3,6 +3,8 @@ import { atomWithHash } from "jotai-location";
 import { atomWithStorage } from "jotai/utils";
 import { CSSProperties } from "react";
 import { Font } from "./font";
+import MedusaLogo from "../assets/medusa.svg";
+import MedusaLogoUrl from "../assets/medusa.svg?url";
 import VercelLogo from "../assets/vercel.svg";
 import VercelLogoUrl from "../assets/vercel.svg?url";
 import RabbitLogo from "../assets/rabbit.svg";
@@ -94,6 +96,48 @@ export type Theme = {
 };
 
 export const THEMES: { [index: string]: Theme } = {
+  medusa: {
+    id: "medusa",
+    name: "Medusa",
+    background: {
+      from: "#232323",
+      to: "#1F1F1F",
+    },
+    icon: MedusaLogo,
+    iconUrl: `${BASE_URL}${MedusaLogoUrl.src}`,
+    font: "geist-mono",
+    partner: true,
+    syntax: {
+      light: convertToShikiTheme({
+        foreground: "hsla(0, 0%, 93%,1)",
+        constant: "oklch(71.7% 0.1648 250.79360374054167)",
+        string: "oklch(73.1% 0.2158 148.29)",
+        comment: "hsla(0, 0%, 63%,1)",
+        keyword: "oklch(69.36% 0.2223 3.91)",
+        parameter: "oklch(77.21% 0.1991 64.28)",
+        function: "oklch(69.87% 0.2037 309.51)",
+        stringExpression: "oklch(73.1% 0.2158 148.29)",
+        punctuation: "hsla(0, 0%, 93%,1)",
+        link: "oklch(73.1% 0.2158 148.29)",
+        number: "#ffffff",
+        property: "oklch(71.7% 0.1648 250.79360374054167)",
+      }),
+      dark: convertToShikiTheme({
+        foreground: "hsla(0, 0%, 93%,1)",
+        constant: "oklch(71.7% 0.1648 250.79360374054167)",
+        string: "oklch(73.1% 0.2158 148.29)",
+        comment: "hsla(0, 0%, 63%,1)",
+        keyword: "oklch(69.36% 0.2223 3.91)",
+        parameter: "oklch(77.21% 0.1991 64.28)",
+        function: "oklch(69.87% 0.2037 309.51)",
+        stringExpression: "oklch(73.1% 0.2158 148.29)",
+        punctuation: "hsla(0, 0%, 93%,1)",
+        link: "oklch(73.1% 0.2158 148.29)",
+        number: "#ffffff",
+        property: "oklch(71.7% 0.1648 250.79360374054167)",
+      }),
+    },
+  },
   vercel: {
     id: "vercel",
     name: "Vercel",
@@ -1041,7 +1085,7 @@ const themeAtom = atomWithHash<Theme>(
         return THEMES.candy;
       }
     },
-  },
+  }
 );
 
 const darkModeAtom = atomWithHash<boolean>("darkMode", true);
